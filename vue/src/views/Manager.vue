@@ -3,8 +3,8 @@
     <div style="height: 60px; background-color: #fff; display: flex; align-items: center; border-bottom: 1px solid #ddd">
       <div style="flex: 1">
         <div style="padding-left: 20px; display: flex; align-items: center">
-          <img src="@/assets/imgs/logo.png" alt="" style="width: 40px">
-          <div style="font-weight: bold; font-size: 24px; margin-left: 5px">管理系统</div>
+          <img src="@/assets/imgs/dytiger_logo.png" alt="" style="width: 60px">
+          <div style="font-weight: bold; font-size: 24px; margin-left: 5px">Dytiger</div>
         </div>
       </div>
       <div style="width: fit-content; padding-right: 10px; display: flex; align-items: center;">
@@ -14,7 +14,7 @@
     </div>
 
     <div style="display: flex">
-      <div style="width: 200px; border-right: 1px solid #ddd; min-height: calc(100vh - 60px)">
+      <div style="width: 220px; border-right: 1px solid #ddd; min-height: calc(100vh - 60px)">
         <el-menu
             router
             style="border: none"
@@ -23,29 +23,29 @@
         >
           <el-menu-item index="/home">
             <el-icon><HomeFilled /></el-icon>
-            <span>系统首页</span>
+            <span>HOME</span>
           </el-menu-item>
           <el-sub-menu index="2">
             <template #title>
               <el-icon><Memo /></el-icon>
-              <span>用户管理</span>
+              <span>User Management</span>
             </template>
             <el-menu-item index="/admin">
               <el-icon><User /></el-icon>
-              <span>管理员信息</span>
+              <span>Admin Information</span>
             </el-menu-item>
           </el-sub-menu>
           <el-menu-item index="/person">
             <el-icon><User /></el-icon>
-            <span>个人资料</span>
+            <span>My profile</span>
           </el-menu-item>
           <el-menu-item index="/password">
             <el-icon><Lock /></el-icon>
-            <span>修改密码</span>
+            <span>Update Password</span>
           </el-menu-item>
           <el-menu-item index="login" @click="logout">
             <el-icon><SwitchButton /></el-icon>
-            <span>退出系统</span>
+            <span>Log out</span>
           </el-menu-item>
         </el-menu>
       </div>
@@ -68,7 +68,7 @@ const data = reactive({
 })
 
 if (!data.user?.id) {
-  ElMessage.error('请登录！')
+  ElMessage.error('Please log in！')
   router.push('/login')
 }
 
@@ -77,7 +77,7 @@ const updateUser = () => {
 }
 
 const logout = () => {
-  ElMessage.success('退出成功')
+  ElMessage.success('log out successfully')
   localStorage.removeItem('system-user')
   router.push('/login')
 }

@@ -2,32 +2,32 @@
   <div>
 
     <div class="card" style="margin-bottom: 5px;">
-      <el-input v-model="data.name" style="width: 300px; margin-right: 10px" placeholder="请输入名称查询"></el-input>
-      <el-button type="primary" @click="load">查询</el-button>
-      <el-button type="info" style="margin: 0 10px" @click="reset">重置</el-button>
+      <el-input v-model="data.name" style="width: 300px; margin-right: 10px" placeholder="Please enter the username"></el-input>
+      <el-button type="primary" @click="load">search</el-button>
+      <el-button type="info" style="margin: 0 10px" @click="reset">reset</el-button>
     </div>
 
     <div class="card" style="margin-bottom: 5px">
       <div style="margin-bottom: 10px">
-        <el-button type="primary" @click="handleAdd">新增</el-button>
+        <el-button type="primary" @click="handleAdd">add new</el-button>
       </div>
       <el-table :data="data.tableData" stripe>
-        <el-table-column label="用户名" prop="username"></el-table-column>
-        <el-table-column label="名称" prop="name"></el-table-column>
-        <el-table-column label="头像">
+        <el-table-column label="username" prop="username"></el-table-column>
+        <el-table-column label="name" prop="name"></el-table-column>
+        <el-table-column label="avatar">
           <template #default="scope">
             <el-image :src="scope.row.avatar" style="width: 40px; height: 40px; border-radius: 50%"></el-image>
           </template>
         </el-table-column>
-        <el-table-column label="角色" prop="role">
+        <el-table-column label="role" prop="role">
           <template #default="scope">
-            <span v-if="scope.row.role === 'ADMIN'">管理员</span>
+            <span v-if="scope.row.role === 'ADMIN'">admin</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" align="center" width="160">
+        <el-table-column label="operation" align="center" width="160">
           <template #default="scope">
-            <el-button type="primary" @click="handleEdit(scope.row)">编辑</el-button>
-            <el-button type="danger" @click="handleDelete(scope.row.id)">删除</el-button>
+            <el-button type="primary" @click="handleEdit(scope.row)">edit</el-button>
+            <el-button type="danger" @click="handleDelete(scope.row.id)">delete</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -37,24 +37,24 @@
       <el-pagination background layout="prev, pager, next" v-model:page-size="data.pageSize" v-model:current-page="data.pageNum" :total="data.total"/>
     </div>
 
-    <el-dialog title="信息" width="40%" v-model="data.formVisible" :close-on-click-modal="false" destroy-on-close>
+    <el-dialog title="Information" width="40%" v-model="data.formVisible" :close-on-click-modal="false" destroy-on-close>
       <el-form :model="data.form" label-width="100px" style="padding-right: 50px">
-        <el-form-item label="头像" prop="avatar">
+        <el-form-item label="avatar" prop="avatar">
           <el-upload :action="uploadUrl" list-type="picture" :on-success="handleImgSuccess">
-            <el-button type="primary">上传图片</el-button>
+            <el-button type="primary">upload image</el-button>
           </el-upload>
         </el-form-item>
-        <el-form-item label="账号" prop="username">
+        <el-form-item label="username" prop="username">
           <el-input v-model="data.form.username" autocomplete="off" />
         </el-form-item>
-        <el-form-item label="名称" prop="name">
+        <el-form-item label="name" prop="name">
           <el-input v-model="data.form.name" autocomplete="off" />
         </el-form-item>
       </el-form>
       <template #footer>
       <span class="dialog-footer">
-        <el-button @click="data.formVisible = false">取 消</el-button>
-        <el-button type="primary" @click="save">保 存</el-button>
+        <el-button @click="data.formVisible = false">cancel</el-button>
+        <el-button type="primary" @click="save">save</el-button>
       </span>
       </template>
     </el-dialog>
@@ -111,7 +111,7 @@ const add = () => {
   request.post('/admin/add', data.form).then(res => {
     if (res.code === '200') {
       load()
-      ElMessage.success('操作成功')
+      ElMessage.success('Successful')
       data.formVisible = false
     } else {
       ElMessage.error(res.msg)
@@ -124,7 +124,7 @@ const update = () => {
   request.put('/admin/update', data.form).then(res => {
     if (res.code === '200') {
       load()
-      ElMessage.success('操作成功')
+      ElMessage.success('Successful')
       data.formVisible = false
     } else {
       ElMessage.error(res.msg)
@@ -140,11 +140,13 @@ const save = () => {
 
 // 删除
 const handleDelete = (id) => {
-  ElMessageBox.confirm('删除后数据无法恢复，您确定删除吗?', '删除确认', { type: 'warning' }).then(res => {
+  ElMessageBox.confirm('After deletion, the data cannot be recovered. Are you sure you want to delete it?', 'delete confirmation', { type: 'warning' ,
+    confirmButtonText: 'Confirm',
+    cancelButtonText: 'Cancel'}).then(res => {
     request.delete('/admin/delete/' + id).then(res => {
       if (res.code === '200') {
         load()
-        ElMessage.success('操作成功')
+        ElMessage.success('Successful')
       } else {
         ElMessage.error(res.msg)
       }

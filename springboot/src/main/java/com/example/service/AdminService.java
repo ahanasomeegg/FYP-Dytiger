@@ -27,7 +27,7 @@ public class AdminService {
     public void add(Admin admin) {
         Admin dbAdmin = adminMapper.selectByUsername(admin.getUsername());
         if (ObjectUtil.isNotNull(dbAdmin)) {
-            throw new CustomException("用户不存在");
+            throw new CustomException("user does not exist!");
         }
         if (ObjectUtil.isEmpty(admin.getPassword())) {
             admin.setPassword("admin");
@@ -82,10 +82,10 @@ public class AdminService {
     public Account login(Account account) {
         Account dbAdmin = adminMapper.selectByUsername(account.getUsername());
         if (ObjectUtil.isNull(dbAdmin)) {
-            throw new CustomException("用户不存在");
+            throw new CustomException("user does not exist!");
         }
         if (!account.getPassword().equals(dbAdmin.getPassword())) {
-            throw new CustomException("账号或密码错误");
+            throw new CustomException("Account or password error");
         }
         return dbAdmin;
     }
@@ -96,10 +96,10 @@ public class AdminService {
     public void updatePassword(Account account) {
         Admin dbAdmin = adminMapper.selectByUsername(account.getUsername());
         if (ObjectUtil.isNull(dbAdmin)) {
-            throw new CustomException("用户不存在");
+            throw new CustomException("user does not exist!");
         }
         if (!account.getPassword().equals(dbAdmin.getPassword())) {
-            throw new CustomException("原密码错误");
+            throw new CustomException("Original password is wrong!");
         }
         dbAdmin.setPassword(account.getNewPassword());
         adminMapper.updateById(dbAdmin);

@@ -4,22 +4,22 @@
       <div style="font-weight: bold; font-size: 24px; text-align: center; margin-bottom: 30px; color: #1450aa">Welcome to log in</div>
       <el-form :model="data.form"  ref="formRef" :rules="data.rules">
         <el-form-item prop="username">
-          <el-input :prefix-icon="User" size="large" v-model="data.form.username" placeholder="请输入账号" />
+          <el-input :prefix-icon="User" size="large" v-model="data.form.username" placeholder="Please enter your username" />
         </el-form-item>
         <el-form-item prop="password">
-          <el-input :prefix-icon="Lock" size="large" v-model="data.form.password" placeholder="请输入密码" show-password />
+          <el-input :prefix-icon="Lock" size="large" v-model="data.form.password" placeholder="Please enter your password" show-password />
         </el-form-item>
         <el-form-item prop="role">
           <el-select size="large" style="width: 100%" v-model="data.form.role">
-            <el-option value="ADMIN" label="管理员"></el-option>
+            <el-option value="ADMIN" label="admin"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button size="large" type="primary" style="width: 100%" @click="login">登 录</el-button>
+          <el-button size="large" type="primary" style="width: 100%" @click="login">Log in</el-button>
         </el-form-item>
       </el-form>
-      <div style="text-align: right;">
-        还没有账号？请 <a href="/register">注册</a>
+      <div style="text-align: left; font-size: 14px">
+        Don't have an account yet? please <a href="/register">register</a>
       </div>
     </div>
 
@@ -37,10 +37,10 @@
     form: { role: 'ADMIN' },
     rules: {
       username: [
-        { required: true, message: '请输入账号', trigger: 'blur' },
+        { required: true, message: 'Please enter username', trigger: 'blur' },
       ],
       password: [
-        { required: true, message: '请输入密码', trigger: 'blur' },
+        { required: true, message: 'Please enter password', trigger: 'blur' },
       ],
     }
   })
@@ -54,7 +54,7 @@
         // 调用后台的接口
         request.post('/login', data.form).then(res => {
           if (res.code === '200') {
-            ElMessage.success("登录成功")
+            ElMessage.success("Log in successfully")
             router.push('/')
             localStorage.setItem('system-user', JSON.stringify(res.data))
           } else {
@@ -76,7 +76,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(to top, #7f7fd5, #86a8e7, #91eae4);
+  background: linear-gradient(to top, #F9B44C, #86a3e7, #91eae9);
   background-size: cover;
 }
 .login-box {

@@ -2,7 +2,7 @@
   <div>
 
     <div class="card" style="line-height: 30px">
-      <div>欢迎您，{{ data.user.name }} 祝您今天过得开心！</div>
+      <div>Welcome,   {{ data.user.name }}!  Wish you a nice day！</div>
     </div>
 
   </div>

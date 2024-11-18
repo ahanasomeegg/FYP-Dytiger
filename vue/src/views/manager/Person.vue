@@ -8,14 +8,14 @@
             <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
           </el-upload>
         </div>
-        <el-form-item label="账号">
+        <el-form-item label="username">
           <el-input disabled v-model="data.user.username" autocomplete="off" />
         </el-form-item>
-        <el-form-item label="名称">
+        <el-form-item label="name">
           <el-input v-model="data.user.name" autocomplete="off" />
         </el-form-item>
         <div style="text-align: center">
-          <el-button type="primary" @click="save">保存</el-button>
+          <el-button type="primary" @click="save">save</el-button>
         </div>
       </el-form>
     </div>
@@ -44,7 +44,7 @@ const save = () => {
   if (data.user.role === 'ADMIN') {
     request.put('/admin/update', data.user).then(res => {
       if (res.code === '200') {
-        ElMessage.success('更新成功')
+        ElMessage.success('Update successfully')
         //把更新后的用户信息存储到缓存
         localStorage.setItem('system-user', JSON.stringify(data.user))
         emit('updateUser')

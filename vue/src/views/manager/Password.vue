@@ -1,18 +1,18 @@
 <template>
   <div style="width: 50%">
     <div class="card" style="padding: 30px">
-      <el-form :model="data.user" label-width="100px" style="padding-right: 50px">
-        <el-form-item label="原密码">
+      <el-form :model="data.user" label-width="180px" style="padding-right: 50px">
+        <el-form-item label="original password">
           <el-input v-model="data.user.password" show-password />
         </el-form-item>
-        <el-form-item label="新密码">
+        <el-form-item label="new password">
           <el-input v-model="data.user.newPassword" show-password />
         </el-form-item>
-        <el-form-item label="确认新密码">
+        <el-form-item label="confirm new password">
           <el-input v-model="data.user.confirmPasword" show-password />
         </el-form-item>
         <div style="text-align: center">
-          <el-button type="primary" @click="save">保存</el-button>
+          <el-button type="primary" @click="save">save</el-button>
         </div>
       </el-form>
     </div>
@@ -32,12 +32,12 @@ const data = reactive({
 // 把当前修改的用户信息存储到后台数据库
 const save = () => {
   if (data.user.newPassword !== data.user.confirmPasword) {
-    ElMessage.error('确认新密码错误')
+    ElMessage.error('Confirm new password error')
     return
   }
   request.put('/updatePassword', data.user).then(res => {
     if (res.code === '200') {
-      ElMessage.success('修改密码成功')
+      ElMessage.success('Password changed successfully')
       // 清空缓存
       localStorage.removeItem('system-user')
       router.push('/login')
