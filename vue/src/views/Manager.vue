@@ -19,12 +19,22 @@
             router
             style="border: none"
             :default-active="router.currentRoute.value.path"
-            :default-openeds="['/home', '2']"
+            :default-openeds="['1', '2']"
         >
           <el-menu-item index="/home">
             <el-icon><HomeFilled /></el-icon>
             <span>HOME</span>
           </el-menu-item>
+          <el-sub-menu index="1">
+            <template #title>
+              <el-icon><Memo /></el-icon>
+              <span>Information</span>
+            </template>
+            <el-menu-item index="/bulletin">
+              <el-icon><Bell /></el-icon>
+              <span>Bulletin</span>
+            </el-menu-item>
+          </el-sub-menu>
           <el-sub-menu index="2">
             <template #title>
               <el-icon><Memo /></el-icon>

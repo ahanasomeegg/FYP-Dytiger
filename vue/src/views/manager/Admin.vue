@@ -9,7 +9,7 @@
 
     <div class="card" style="margin-bottom: 5px">
       <div style="margin-bottom: 10px">
-        <el-button type="primary" @click="handleAdd">add new</el-button>
+        <el-button type="primary" @click="handleAdd">Add</el-button>
       </div>
       <el-table :data="data.tableData" stripe>
         <el-table-column label="username" prop="username"></el-table-column>
@@ -24,7 +24,7 @@
             <span v-if="scope.row.role === 'ADMIN'">admin</span>
           </template>
         </el-table-column>
-        <el-table-column label="operation" align="center" width="160">
+        <el-table-column label="Operations" align="center" width="160">
           <template #default="scope">
             <el-button type="primary" @click="handleEdit(scope.row)">edit</el-button>
             <el-button type="danger" @click="handleDelete(scope.row.id)">delete</el-button>
@@ -53,8 +53,8 @@
       </el-form>
       <template #footer>
       <span class="dialog-footer">
-        <el-button @click="data.formVisible = false">cancel</el-button>
-        <el-button type="primary" @click="save">save</el-button>
+        <el-button @click="data.formVisible = false">Cancel</el-button>
+        <el-button type="primary" @click="save">Confirm</el-button>
       </span>
       </template>
     </el-dialog>
@@ -111,7 +111,7 @@ const add = () => {
   request.post('/admin/add', data.form).then(res => {
     if (res.code === '200') {
       load()
-      ElMessage.success('Successful')
+      ElMessage.success('add successfully')
       data.formVisible = false
     } else {
       ElMessage.error(res.msg)
@@ -124,7 +124,7 @@ const update = () => {
   request.put('/admin/update', data.form).then(res => {
     if (res.code === '200') {
       load()
-      ElMessage.success('Successful')
+      ElMessage.success('update successfully')
       data.formVisible = false
     } else {
       ElMessage.error(res.msg)
@@ -146,7 +146,7 @@ const handleDelete = (id) => {
     request.delete('/admin/delete/' + id).then(res => {
       if (res.code === '200') {
         load()
-        ElMessage.success('Successful')
+        ElMessage.success('delete successfully')
       } else {
         ElMessage.error(res.msg)
       }
@@ -162,7 +162,7 @@ const reset = () => {
 
 // 处理文件上传的钩子
 const handleImgSuccess = (res) => {
-  data.form.avatar = res.data  // res.data就是文件上传返回的文件路径，获取到路径后赋值表单的属性
+  data.form.avatar = res.data
 }
 
 load()

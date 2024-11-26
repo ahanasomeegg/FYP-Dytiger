@@ -15,7 +15,7 @@ public class Result {
     public static Result success() {
         Result result = new Result();
         result.setCode("200");
-        result.setMsg("请求成功");
+        result.setMsg("Request success");
         return result;
     }
 
@@ -28,7 +28,7 @@ public class Result {
     public static Result error() {
         Result result = new Result();
         result.setCode("500");
-        result.setMsg("请求失败");
+        result.setMsg("request error");
         return result;
     }
 
