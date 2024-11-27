@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.MovieMapper">
+
+    <insert id="insert" parameterType="com.example.entity.Movie">
+        insert into movie(name, cover, descr, year, director, actors, genre_id, country, language, date, duration, imdb)
+        values (#{name}, #{cover}, #{descr}, #{year}, #{director}, #{actors}, #{genreId}, #{country}, #{language}, #{date}, #{duration}, #{imdb})
+    </insert>
+
+    <update id="updateById" parameterType="com.example.entity.Movie">
+        update movie set name = #{name}, cover = #{cover}, descr = #{ descr}, year = #{year}, director = #{director},  
+        actors = #{actors}, genre_id = #{genreId}, country= #{country},  language = #{language},  date = #{date},
+        duration = #{duration}, imdb = #{imdb}
+        where id =#{id}
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from movie where id = #{id}
+    </delete>
+
+    <select id="selectAll" resultType="com.example.entity.Movie">
+        select movie.*, genre.name as genreName from movie
+        left join genre on movie.genre_id = genre.id
+        <where>
+        <if test="name != null">and movie.name like concat('%', #{name}, '%')</if>
+        </where>
+        order by movie.id desc
+    </select>
+</mapper>

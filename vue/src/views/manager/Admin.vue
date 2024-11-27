@@ -67,7 +67,7 @@ import request from "@/utils/request";
 import {reactive} from "vue";
 import {ElMessageBox, ElMessage} from "element-plus";
 
-// 文件上传的接口地址
+// Interface address for file upload
 const uploadUrl = import.meta.env.VITE_BASE_URL + '/files/upload'
 
 const data = reactive({
@@ -80,7 +80,7 @@ const data = reactive({
   name: null
 })
 
-// 分页查询
+// pagination
 const load = () => {
   request.get('/admin/selectPage', {
     params: {
@@ -94,19 +94,19 @@ const load = () => {
   })
 }
 
-// 新增
+// add
 const handleAdd = () => {
   data.form = {}
   data.formVisible = true
 }
 
-// 编辑
+// edit
 const handleEdit = (row) => {
   data.form = JSON.parse(JSON.stringify(row))
   data.formVisible = true
 }
 
-// 新增保存
+// save the added
 const add = () => {
   request.post('/admin/add', data.form).then(res => {
     if (res.code === '200') {
@@ -132,13 +132,12 @@ const update = () => {
   })
 }
 
-// 弹窗保存
+// Pop up save
 const save = () => {
-  // data.form有id就是更新，没有就是新增
   data.form.id ? update() : add()
 }
 
-// 删除
+// delete
 const handleDelete = (id) => {
   ElMessageBox.confirm('After deletion, the data cannot be recovered. Are you sure you want to delete it?', 'delete confirmation', { type: 'warning' ,
     confirmButtonText: 'Confirm',
@@ -154,13 +153,13 @@ const handleDelete = (id) => {
   }).catch(err => {})
 }
 
-// 重置
+// reset
 const reset = () => {
   data.name = null
   load()
 }
 
-// 处理文件上传的钩子
+// Hook for handling file uploads
 const handleImgSuccess = (res) => {
   data.form.avatar = res.data
 }

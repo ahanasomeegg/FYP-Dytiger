@@ -30,8 +30,16 @@
               <el-icon><Memo /></el-icon>
               <span>Information</span>
             </template>
-            <el-menu-item index="/bulletin">
+            <el-menu-item index="/genre">
               <el-icon><Bell /></el-icon>
+              <span>Movie Genre</span>
+            </el-menu-item>
+            <el-menu-item index="/movie">
+              <el-icon><Film /></el-icon>
+              <span>Movie information</span>
+            </el-menu-item>
+            <el-menu-item index="/bulletin">
+              <el-icon><Grid /></el-icon>
               <span>Bulletin</span>
             </el-menu-item>
           </el-sub-menu>
