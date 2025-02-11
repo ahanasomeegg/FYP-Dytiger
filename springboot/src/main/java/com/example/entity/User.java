@@ -1,9 +1,9 @@
 package com.example.entity;
 
 /**
- * admin
+ * normal user
 */
-public class Admin extends Account {
+public class User extends Account {
 
     /** ID */
     private Integer id;
@@ -15,7 +15,7 @@ public class Admin extends Account {
     private String name;
     /** profile */
     private String avatar;
-    /** role of user */
+    /** role */
     private String role;
 
     @Override

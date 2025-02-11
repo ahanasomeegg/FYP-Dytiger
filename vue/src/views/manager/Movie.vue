@@ -50,7 +50,7 @@
         </el-upload>
       </el-form-item>
       <el-form-item label="description" >
-        <el-input v-model="data.form.descr" autocomplete="off" placeholder="Please enter the description"/>
+        <el-input :rows="5" type="textarea" v-model="data.form.descr" autocomplete="off" placeholder="Please enter the description"/>
       </el-form-item>
       <el-form-item label="year" >
         <el-input v-model="data.form.year" autocomplete="off" placeholder="Please enter the year"/>

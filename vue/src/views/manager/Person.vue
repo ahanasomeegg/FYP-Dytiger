@@ -27,7 +27,7 @@ import {reactive} from "vue"
 import request from "@/utils/request";
 import {ElMessage} from "element-plus";
 
-// 文件上传的接口地址
+// Interface address for file upload
 const uploadUrl = import.meta.env.VITE_BASE_URL + '/files/upload'
 
 const data = reactive({
@@ -39,13 +39,24 @@ const handleFileUpload = (file) => {
 }
 
 const emit = defineEmits(["updateUser"])
-// 把当前修改的用户信息存储到后台数据库
+// Store the currently modified user information in the backend database
 const save = () => {
   if (data.user.role === 'ADMIN') {
     request.put('/admin/update', data.user).then(res => {
       if (res.code === '200') {
         ElMessage.success('Update successfully')
-        //把更新后的用户信息存储到缓存
+        //Store updated user information in cache
+        localStorage.setItem('system-user', JSON.stringify(data.user))
+        emit('updateUser')
+      } else {
+        ElMessage.error(res.msg)
+      }
+    })
+  } else if(data.user.role === 'USER') {
+    request.put('/user/update', data.user).then(res => {
+      if (res.code === '200') {
+        ElMessage.success('Update successfully')
+        //Store updated user information in cache
         localStorage.setItem('system-user', JSON.stringify(data.user))
         emit('updateUser')
       } else {

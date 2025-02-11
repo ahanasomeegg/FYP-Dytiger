@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * 管理员业务处理
+ * admin business handle
  **/
 @Service
 public class AdminService {
@@ -22,7 +22,7 @@ public class AdminService {
     private AdminMapper adminMapper;
 
     /**
-     * 新增
+     * add
      */
     public void add(Admin admin) {
         Admin dbAdmin = adminMapper.selectByUsername(admin.getUsername());
@@ -40,35 +40,35 @@ public class AdminService {
     }
 
     /**
-     * 删除
+     * delete
      */
     public void deleteById(Integer id) {
         adminMapper.deleteById(id);
     }
 
     /**
-     * 修改
+     * update
      */
     public void updateById(Admin admin) {
         adminMapper.updateById(admin);
     }
 
     /**
-     * 根据ID查询
+     * selectById
      */
     public Admin selectById(Integer id) {
         return adminMapper.selectById(id);
     }
 
     /**
-     * 查询所有
+     * selectAll
      */
     public List<Admin> selectAll(Admin admin) {
         return adminMapper.selectAll(admin);
     }
 
     /**
-     * 分页查询
+     * pagination
      */
     public PageInfo<Admin> selectPage(Admin admin, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
@@ -77,7 +77,7 @@ public class AdminService {
     }
 
     /**
-     * 登录
+     * login
      */
     public Account login(Account account) {
         Account dbAdmin = adminMapper.selectByUsername(account.getUsername());
@@ -91,7 +91,7 @@ public class AdminService {
     }
 
     /**
-     * 修改密码
+     * update password
      */
     public void updatePassword(Account account) {
         Admin dbAdmin = adminMapper.selectByUsername(account.getUsername());

@@ -12,6 +12,7 @@
         <el-form-item prop="role">
           <el-select size="large" style="width: 100%" v-model="data.form.role">
             <el-option value="ADMIN" label="admin"></el-option>
+            <el-option value="USER" label="normal user"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item>
@@ -47,11 +48,11 @@
 
   const formRef = ref()
 
-  // 点击登录按钮的时候会触发这个方法
+  // When clicking the login button, this method will be triggered
   const login = () => {
     formRef.value.validate((valid => {
       if (valid) {
-        // 调用后台的接口
+        // call the backend API
         request.post('/login', data.form).then(res => {
           if (res.code === '200') {
             ElMessage.success("Log in successfully")

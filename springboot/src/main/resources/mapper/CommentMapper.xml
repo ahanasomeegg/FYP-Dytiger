@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.CommentMapper">
+
+    <insert id="insert" parameterType="com.example.entity.Comment">
+        insert into comment(movie_id, score, comment, user_id, time, type) values (#{movieId}, #{score}, #{comment}, 
+        #{userId}, #{time}, #{type})
+    </insert>
+
+    <update id="updateById" parameterType="com.example.entity.Comment">
+        update comment set movie_id = #{movieId}, score= #{score}, comment = #{name}, user_id =#{userId},
+        time = #{time}, type = #{type}
+        where id =#{id}
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from comment where id = #{id}
+    </delete>
+
+    <select id="selectAll" resultType="com.example.entity.Comment">
+        select comment.*, movie.name as movieName, user.name as userName from comment
+        left join movie on comment.movie_id = movie.id
+        left join user on comment.user_id = user.id
+        <where>
+        <if test="movieName != null">and movie.name like concat('%', #{movieName}, '%')</if>
+        <if test="userId != null">and comment.user_id = #{userId}</if>
+        </where>
+        order by comment.id desc
+    </select>
+</mapper>
