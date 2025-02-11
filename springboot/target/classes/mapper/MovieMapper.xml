@@ -25,6 +25,7 @@
         left join genre on movie.genre_id = genre.id
         <where>
         <if test="name != null">and movie.name like concat('%', #{name}, '%')</if>
+        <if test="genreId != null">and movie.genre_id = #{genreId}</if>
         </where>
         order by movie.id desc
     </select>

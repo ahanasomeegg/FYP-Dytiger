@@ -1,13 +1,9 @@
-<script>
-export default {
-  name: "MovieList"
-}
-</script>
-
 <template>
+  <div>
 
+  </div>
 </template>
 
-<style scoped>
+<script setup>
 
-</style>
+</script>

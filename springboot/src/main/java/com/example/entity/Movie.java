@@ -15,6 +15,26 @@ public class Movie {
     private String duration;
     private String imdb;
     private String genreName;
+    //number of comments about one movie
+    private Integer commentNum;
+    //rating of movie
+    private Double score;
+
+    public Double getScore() {
+        return score;
+    }
+
+    public void setScore(Double score) {
+        this.score = score;
+    }
+
+    public Integer getCommentNum() {
+        return commentNum;
+    }
+
+    public void setCommentNum(Integer commentNum) {
+        this.commentNum = commentNum;
+    }
 
     public Integer getId() {
         return id;

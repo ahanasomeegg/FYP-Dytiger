@@ -25,6 +25,10 @@
             <el-icon><HomeFilled /></el-icon>
             <span>HOME</span>
           </el-menu-item>
+          <el-menu-item index="/movieView">
+            <el-icon><HomeFilled /></el-icon>
+            <span>Movie List</span>
+          </el-menu-item>
           <el-menu-item index="/comment">
             <el-icon><Comment /></el-icon>
             <span>Movie Comment</span>
