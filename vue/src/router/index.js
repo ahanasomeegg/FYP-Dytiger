@@ -18,6 +18,7 @@ const router = createRouter({
         { path: 'comment', component: () => import('@/views/manager/Comment.vue')},
         { path: 'user', component: () => import('@/views/manager/User.vue')},
         { path: 'movieView', component: () => import('@/views/manager/MovieView.vue')},
+        { path: 'movieDetail', component: () => import('@/views/manager/MovieDetail.vue')},
       ]
     },
     { path: '/login', component: () => import('@/views/Login.vue')},

@@ -50,6 +50,20 @@ public class MovieController {
         return Result.success(list);
     }
 
+    //Recommended movies
+    @GetMapping("/selectRecommended/{id}")
+    public Result selectRecommended(@PathVariable Integer id) {
+        List<Movie> list = movieService.selectRecommended(id);
+        return Result.success(list);
+    }
+
+    //query one movie by id
+    @GetMapping("/selectById/{id}")
+    public Result selectById(@PathVariable Integer id) {
+        Movie movie = movieService.selectById(id);
+        return Result.success(movie);
+    }
+
     //pagination
     @GetMapping("/selectPage")
     public Result selectPage(Movie movie,

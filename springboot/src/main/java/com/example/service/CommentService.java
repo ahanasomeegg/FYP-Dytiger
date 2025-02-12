@@ -1,5 +1,6 @@
 package com.example.service;
 
+import cn.hutool.core.date.DateUtil;
 import com.example.entity.Comment;
 import com.example.mapper.CommentMapper;
 import com.github.pagehelper.PageHelper;
@@ -16,6 +17,7 @@ public class CommentService {
     private CommentMapper commentMapper;
 
     public void add(Comment comment) {
+        comment.setTime(DateUtil.now());
         commentMapper.insert(comment);
     }
 

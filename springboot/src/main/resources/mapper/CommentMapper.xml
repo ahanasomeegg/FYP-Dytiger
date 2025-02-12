@@ -26,6 +26,8 @@
         <where>
         <if test="movieName != null">and movie.name like concat('%', #{movieName}, '%')</if>
         <if test="userId != null">and comment.user_id = #{userId}</if>
+        <if test="type != null">and comment.type = #{type}</if>
+        <if test="movieId != null">and comment.movie_id = #{movieId}</if>
         </where>
         order by comment.id desc
     </select>

@@ -29,4 +29,9 @@
         </where>
         order by movie.id desc
     </select>
+    <select id="selectById" resultType="com.example.entity.Movie">
+        select movie.*, genre.name as genreName from movie
+        left join genre on movie.genre_id = genre.id
+        where movie.id = #{id}
+    </select>
 </mapper>

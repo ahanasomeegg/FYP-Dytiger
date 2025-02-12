@@ -13,7 +13,7 @@
 
     <div class="card" style="margin-bottom: 5px">
       <el-row :gutter="20">
-        <el-col :span="6" v-for="item in data.tableData" :key="item.id" style="margin-bottom: 20px">
+        <el-col :span="6" v-for="item in data.tableData" :key="item.id" style="margin-bottom: 20px; cursor: pointer" @click="goDetail(item.id)">
           <img :src="item.cover" alt="" style="width: 100%; height: 450px; border-radius: 5px">
           <div style="margin: 5px 0; font-size: 18px" class="line1">{{item.name}}</div>
           <div style="margin: 5px 0; display: flex">
@@ -47,6 +47,10 @@ const data = reactive({
   genreList: [],
   genreId: null
 })
+
+const goDetail = (id) =>{
+  location.href = "/movieDetail?id=" + id
+}
 
 // search all movie genre information
 const loadGenre = () => {

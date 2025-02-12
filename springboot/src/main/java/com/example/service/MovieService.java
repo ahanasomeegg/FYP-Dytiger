@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MovieService {
@@ -52,20 +54,44 @@ public class MovieService {
         PageHelper.startPage(pageNum, pageSize);
         List<Movie> list = movieMapper.selectAll(movie);
         for(Movie m : list){
-            //Check how many reviews there are for the current movie
-            int total = commentMapper.selectTotal(m.getId());
-            m.setCommentNum(total);
-            if(total== 0){
-                m.setScore(0D);
-            }else{
-                //Calculate the average score for the movie
-               double sum = commentMapper.selectSum(m.getId());
-               BigDecimal score = BigDecimal.valueOf(sum).divide(BigDecimal.valueOf(total), 1, RoundingMode.HALF_UP);
-               m.setScore(score.doubleValue());
-            }
+           this.setScore(m);
         }
         return PageInfo.of(list);
     }
 
 
+    public Movie selectById(Integer id) {
+        Movie movie = movieMapper.selectById(id);
+        this.setScore(movie);
+        return movie;
+    }
+
+    //random recommendation
+    public List<Movie> selectRecommended(Integer movieId) {
+        List<Movie> movies = this.selectAll(null);
+        //Exclude the movie from the current detail page
+        movies = movies.stream().filter(movie -> !movie.getId().equals(movieId)).collect(Collectors.toList());
+        Collections.shuffle(movies); //random recommendation
+        List<Movie> movieList = movies.stream().limit(3).collect(Collectors.toList());
+        for (Movie movie : movieList){
+            this.setScore(movie);
+        }
+        return movieList;
+    }
+
+    private void setScore(Movie movie){
+        //Check how many reviews there are for the current movie
+        int total = commentMapper.selectTotal(movie.getId());
+        movie.setCommentNum(total);
+        if(total== 0){
+            movie.setScore(0D);
+        }else{
+            //Calculate the average score for the movie
+            double sum = commentMapper.selectSum(movie.getId());
+            BigDecimal score = BigDecimal.valueOf(sum).divide(BigDecimal.valueOf(total), 1, RoundingMode.HALF_UP);
+            movie.setScore(score.doubleValue());
+        }
+    }
 }
+
+
