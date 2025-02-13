@@ -92,6 +92,15 @@ public class MovieService {
             movie.setScore(score.doubleValue());
         }
     }
+
+    // top 10 rating
+    public List<Movie> selectRanking() {
+        List<Movie> movieList = movieMapper.selectAll(null);
+        for(Movie movie : movieList){
+            setScore(movie);
+        }
+        return movieList.stream().sorted((m1, m2) -> m2.getScore().compareTo(m1.getScore())).limit(10).toList();
+    }
 }
 
 

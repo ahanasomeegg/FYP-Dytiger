@@ -1,7 +1,7 @@
 <template>
   <div>
   <div style="display: flex; align-items:flex-start; grid-gap: 10px">
-    <div  style="flex:1">
+    <div  style="flex:1; width: 0">
       <div class="card" style="padding: 20px; margin-bottom: 10px">
         <div style="display: flex; align-items: center">
           <div style="font-weight: bold; font-size: 18px; flex: 1">{{ data.movie.name }}</div>
@@ -117,7 +117,7 @@
     </el-dialog>
 
     <el-dialog v-model="data.formVisibleView" title="long reviews display" width="50%">
-      <div style="line-height: 24px">
+      <div style="line-height: 24px" class="longComment">
         <div v-html="data.comment"></div>
       </div>
       <template #footer>
@@ -202,6 +202,7 @@ const save = () =>{
       data.formVisible = false
       ElMessage.success('Review successfully')
       loadShortComment()
+      loadLongComment()
     }else{
       ElMessage.success(res.msg)
     }
@@ -252,3 +253,9 @@ request.get('/movie/selectRecommended/' + data.id).then(res => {
 
 
 </script>
+
+<style>
+.longComment img{
+  width: 100%;
+}
+</style>

@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.common.Result;
 import com.example.entity.Account;
+import com.example.entity.User;
 import com.example.service.AdminService;
 import com.example.service.UserService;
 import jakarta.annotation.Resource;
@@ -43,7 +44,8 @@ public class WebController {
      * 注册
      */
     @PostMapping("/register")
-    public Result register() {
+    public Result register(@RequestBody User user) {
+        userService.add(user);
         return Result.success();
     }
 

@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <div class="login-box">
-      <div style="font-weight: bold; font-size: 24px; text-align: center; margin-bottom: 30px; color: #1450aa">Welcome to register</div>
+      <div style="font-weight: bold; font-size: 24px; text-align: center; margin-bottom: 30px; color: #1450aa; font-style: italic">Join Us!</div>
       <el-form :model="data.form"  ref="formRef" :rules="data.rules">
         <el-form-item prop="username">
           <el-input :prefix-icon="User" size="large" v-model="data.form.username" placeholder="Please enter your username" />
@@ -13,7 +13,7 @@
           <el-input :prefix-icon="Lock" size="large" v-model="data.form.confirmPassword" placeholder="Please confirm your password" show-password />
         </el-form-item>
         <el-form-item>
-          <el-button size="large" type="primary" style="width: 100%" @click="register">注 册</el-button>
+          <el-button size="large" type="primary" style="width: 100%" @click="register">Register</el-button>
         </el-form-item>
       </el-form>
       <div style="text-align: right;font-size: 14px">
@@ -87,7 +87,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(to bottom, #a8c0ff, #3f2b96);
+  background-image: url("@/assets/imgs/bg.jpg");
   background-size: cover;
 }
 .login-box {

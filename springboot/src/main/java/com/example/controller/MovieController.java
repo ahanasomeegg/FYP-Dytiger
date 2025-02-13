@@ -57,6 +57,13 @@ public class MovieController {
         return Result.success(list);
     }
 
+    //query the movie rating ranking
+    @GetMapping("/selectRanking")
+    public Result selectRanking(){
+        List<Movie> list = movieService.selectRanking();
+        return Result.success(list);
+    }
+
     //query one movie by id
     @GetMapping("/selectById/{id}")
     public Result selectById(@PathVariable Integer id) {

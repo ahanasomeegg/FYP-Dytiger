@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <div class="login-box">
-      <div style="font-weight: bold; font-size: 24px; text-align: center; margin-bottom: 30px; color: #1450aa">Welcome to log in</div>
+      <div style="font-weight: bold; font-size: 24px; text-align: center; margin-bottom: 30px; color: #1450aa; font-style: italic">Welcome to Dytiger!</div>
       <el-form :model="data.form"  ref="formRef" :rules="data.rules">
         <el-form-item prop="username">
           <el-input :prefix-icon="User" size="large" v-model="data.form.username" placeholder="Please enter your username" />
@@ -77,7 +77,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(to top, #F9B44C, #86a3e7, #91eae9);
+  background-image: url("@/assets/imgs/bg1.jpg");
   background-size: cover;
 }
 .login-box {
