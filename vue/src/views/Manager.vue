@@ -33,6 +33,10 @@
             <el-icon><Comment /></el-icon>
             <span>Movie Comment</span>
           </el-menu-item>
+          <el-menu-item index="/discussion">
+            <el-icon><Comment /></el-icon>
+            <span>Discussion Group</span>
+          </el-menu-item>
           <el-sub-menu index="1" v-if="data.user.role ==='ADMIN'">
             <template #title>
               <el-icon><Memo /></el-icon>
