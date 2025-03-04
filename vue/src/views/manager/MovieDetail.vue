@@ -69,6 +69,57 @@
                        v-model:page-size="data.pageSizeLong" :total="data.totalLong"  @current-change="loadLongComment"/>
       </div>
 
+      <!-- 讨论组卡片 -->
+      <div class="card" style="padding: 20px; margin-top: 10px">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <div style="font-size: 20px; color:brown;">
+            Discussion group of {{ data.movie.name }}
+            <span style="font-size: 14px; color: black">
+            ...(total {{ data.totalDiscussion }})
+          </span>
+          </div>
+          <!-- 发起新讨论 -->
+          <el-button type="primary" @click="showAddDiscussionForm">
+            Write New Topic
+          </el-button>
+        </div>
+
+        <!-- 讨论列表 -->
+        <div
+            style="border-bottom: 1px solid #eee; padding: 20px 0"
+            v-for="item in data.discussionList"
+            :key="item.id"
+        >
+          <div style="display: flex; align-items: center; margin-bottom: 5px">
+            <span>{{ item.userName }}</span>
+            <span style="color: #666; margin-left: 10px">{{ item.time }}</span>
+          </div>
+          <div style="font-weight: bold; margin-bottom: 5px">
+            {{ item.title }}
+          </div>
+          <div style="line-height: 24px; color: #666; margin-bottom: 5px" v-html="item.content">
+          </div>
+          <!-- 点击进入讨论详情页 -->
+          <div>
+          <span
+              style="color: #1967e3; cursor: pointer"
+              @click="goDiscussionDetail(item.id)"
+          >
+            Go to detail
+          </span>
+          </div>
+        </div>
+
+        <!-- 分页 -->
+        <el-pagination
+            layout="total, prev, pager, next"
+            v-model:current-page="data.pageNumDiscussion"
+            v-model:page-size="data.pageSizeDiscussion"
+            :total="data.totalDiscussion"
+            @current-change="loadDiscussion"
+        />
+      </div>
+
     </div>
 
     <div style="width: 24%; padding: 20px" class="card">
@@ -129,6 +180,34 @@
     </el-dialog>
 
   </div>
+
+
+
+  <!-- 新增讨论 对话框 -->
+  <el-dialog
+      v-model="data.discussionFormVisible"
+      title="New Discussion"
+      width="50%"
+  >
+    <el-form :model="data.discussionForm" label-width="80px">
+      <el-form-item label="Title">
+        <el-input v-model="data.discussionForm.title" placeholder="Enter title" />
+      </el-form-item>
+      <el-form-item label="Content">
+        <el-input
+            type="textarea"
+            rows="5"
+            v-model="data.discussionForm.content"
+            placeholder="Enter content"
+        />
+      </el-form-item>
+    </el-form>
+    <template #footer>
+      <el-button @click="data.discussionFormVisible = false">Cancel</el-button>
+      <el-button type="primary" @click="saveDiscussion">Confirm</el-button>
+    </template>
+  </el-dialog>
+
 </template>
 
 <script setup>
@@ -159,7 +238,16 @@ const data = reactive({
   totalLong: 0,
   commentLongList: [],
   formVisibleView: false,
-  comment: null
+  comment: null,
+
+  //new
+  discussionList: [],
+  totalDiscussion: 0,
+  pageNumDiscussion: 1,
+  pageSizeDiscussion: 5,
+
+  discussionFormVisible: false,
+  discussionForm: {},
 })
 
 /* wangEditor5 Initialization begins */
@@ -251,6 +339,46 @@ request.get('/movie/selectRecommended/' + data.id).then(res => {
   data.recommendList = res.data
 })
 
+// 加载讨论列表
+const loadDiscussion = () => {
+  request.get('/discussion/selectPage', {
+    params: {
+      pageNum: data.pageNumDiscussion,
+      pageSize: data.pageSizeDiscussion,
+      movieId: data.id
+    }
+  }).then(res => {
+    data.discussionList = res.data.list
+    data.totalDiscussion = res.data.total
+  })
+}
+loadDiscussion()
+
+// 显示新增讨论对话框
+const showAddDiscussionForm = () => {
+  data.discussionForm = {}
+  data.discussionFormVisible = true
+}
+
+// 保存新讨论
+const saveDiscussion = () => {
+  data.discussionForm.movieId = data.id
+  data.discussionForm.userId = data.user.id
+  request.post('/discussion/add', data.discussionForm).then(res => {
+    if(res.code === '200') {
+      ElMessage.success('Discussion posted successfully!')
+      data.discussionFormVisible = false
+      loadDiscussion()
+    } else {
+      ElMessage.error(res.msg)
+    }
+  })
+}
+
+// 点击进入讨论详情页
+const goDiscussionDetail = (id) => {
+  location.href = "/discussionDetail?discussionId=" + id
+}
 
 </script>
 

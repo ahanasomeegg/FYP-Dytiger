@@ -30,6 +30,11 @@ public class DiscussionService {
         discussionMapper.deleteById(id);
     }
 
+    public Discussion getById(Integer id) {
+        return discussionMapper.selectById(id);
+    }
+
+
     public List<Discussion> selectAll(Discussion discussion) {
         return discussionMapper.selectAll(discussion);
     }

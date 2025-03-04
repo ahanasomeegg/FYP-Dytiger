@@ -15,6 +15,7 @@ public interface DiscussionMapper {
 
     List<Discussion> selectAll(Discussion discussion);
 
+    Discussion selectById(Integer id);
 
     @Select("select count(*) from discussion where movie_id = #{movieId}")
     int selectTotal(Integer movieId);

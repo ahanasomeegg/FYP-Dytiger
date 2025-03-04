@@ -19,6 +19,7 @@ const router = createRouter({
         { path: 'user', component: () => import('@/views/manager/User.vue')},
         { path: 'movieView', component: () => import('@/views/manager/MovieView.vue')},
         { path: 'movieDetail', component: () => import('@/views/manager/MovieDetail.vue')},
+        { path: 'discussionDetail', component: () => import('@/views/manager/DiscussionDetail.vue')},
         { path: 'discussion', component: () => import('@/views/manager/Discussion.vue')},
       ]
     },

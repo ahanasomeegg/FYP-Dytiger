@@ -52,4 +52,11 @@ public class DiscussionController {
         PageInfo<Discussion> pageInfo = discussionService.selectPage(discussion, pageNum, pageSize);
         return Result.success(pageInfo);
     }
+
+    // get one detail page
+    @GetMapping("/{id}")
+    public Result getById(@PathVariable Integer id) {
+        Discussion discussion = discussionService.getById(id);
+        return Result.success(discussion);
+    }
 }

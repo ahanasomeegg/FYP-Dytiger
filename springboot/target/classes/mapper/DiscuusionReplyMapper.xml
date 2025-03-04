@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.DiscussionReplyMapper">
+
+    <insert id="insert" parameterType="com.example.entity.DiscussionReply">
+        INSERT INTO discussion_reply(discussion_id, user_id, content, create_time, parent_id)
+        VALUES (#{discussionId}, #{userId}, #{content}, #{createTime}, #{parentId})
+    </insert>
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        DELETE FROM discussion_reply WHERE id = #{id}
+    </delete>
+
+    <select id="selectByDiscussionId" resultType="com.example.entity.DiscussionReply">
+        SELECT
+            r.*,
+            u.name AS userName,
+            pr.user_id AS parentUserId,
+            pu.name AS parentUserName
+        FROM discussion_reply r
+                 LEFT JOIN user u ON r.user_id = u.id
+                 LEFT JOIN discussion_reply pr ON r.parent_id = pr.id
+                 LEFT JOIN user pu ON pr.user_id = pu.id
+        WHERE r.discussion_id = #{discussionId}
+        ORDER BY r.id ASC
+    </select>
+
+</mapper>
