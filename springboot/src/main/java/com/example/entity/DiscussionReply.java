@@ -9,6 +9,15 @@ public class DiscussionReply {
     private Integer parentId;
     private String userName;
     private String parentUserName;
+    private Integer likeCount;
+
+    public Integer getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(Integer likeCount) {
+        this.likeCount = likeCount;
+    }
 
     public String getParentUserName() {
         return parentUserName;
