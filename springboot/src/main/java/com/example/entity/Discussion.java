@@ -11,12 +11,12 @@ public class Discussion {
     private String userName;
     private Boolean isHot;
 
-    public Boolean getHot() {
+    public Boolean getIsHot() {
         return isHot;
     }
 
-    public void setHot(Boolean hot) {
-        isHot = hot;
+    public void setIsHot(Boolean isHot) {
+        this.isHot = isHot;
     }
 
     public Integer getId() {

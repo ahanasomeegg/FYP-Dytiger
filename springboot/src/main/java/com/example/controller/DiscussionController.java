@@ -59,4 +59,11 @@ public class DiscussionController {
         Discussion discussion = discussionService.getById(id);
         return Result.success(discussion);
     }
+
+    //select the hot discussion
+    @GetMapping("/selectHot")
+    public Result selectHot() {
+        List<Discussion> hotList = discussionService.selectHot();
+        return Result.success(hotList);
+    }
 }

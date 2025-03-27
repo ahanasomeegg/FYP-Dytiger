@@ -45,5 +45,11 @@ public class DiscussionService {
         List<Discussion> list = discussionMapper.selectAll(discussion);
         return PageInfo.of(list);
     }
+
+    // return hot discussion
+    public List<Discussion> selectHot() {
+        return discussionMapper.selectHot(); // is_hot=1
+    }
+
 }
 

@@ -8,7 +8,6 @@
       ></el-input>
       <el-button type="primary" @click="load">Search</el-button>
       <el-button type="info" @click="reset">Reset</el-button>
-      <el-button type="success" v-if="data.user.role !== 'ADMIN'"  @click="handleAdd">Add Discussion</el-button>
     </div>
 
     <div class="card" style="margin-bottom: 5px">
@@ -22,6 +21,11 @@
         </el-table-column>
         <el-table-column prop="userName" label="User Name" />
         <el-table-column prop="time" label="Time" />
+        <el-table-column v-if="data.user.role === 'ADMIN'" prop="isHot" label="Hot" width="100">
+          <template #default="scope">
+            <el-switch v-model="scope.row.isHot" @change="toggleHot(scope.row)"></el-switch>
+          </template>
+        </el-table-column>
         <el-table-column label="Operations" width="220">
           <template #default="scope">
             <el-button type="primary" v-if="data.user.role !== 'ADMIN'" @click="handleEdit(scope.row)">Edit</el-button>
@@ -115,10 +119,6 @@ const reset = () => {
   load()
 }
 
-const handleAdd = () => {
-  data.form = {}
-  data.formVisible = true
-}
 
 const handleEdit = (row) => {
   data.form = JSON.parse(JSON.stringify(row))
@@ -169,6 +169,15 @@ const del = (id) => {
     })
   }).catch(() => {})
 }
+const toggleHot = (row) => {
+  request.put("/discussion/update", row).then((res) => {
+    if (res.code === "200") {
+      ElMessage.success("Hot status updated!");
+    } else {
+      ElMessage.error(res.msg || "Update hot failed");
+    }
+  });
+};
 
 load()
 </script>

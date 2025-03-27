@@ -5,7 +5,7 @@
 <mapper namespace="com.example.mapper.DiscussionMapper">
 
     <insert id="insert" parameterType="com.example.entity.Discussion">
-        INSERT INTO discussion(movie_id, user_id, title, content, time，is_hot)
+        INSERT INTO discussion(movie_id, user_id, title, content, time,is_hot)
         VALUES (#{movieId}, #{userId}, #{title}, #{content}, #{time}, #{isHot})
     </insert>
 
@@ -16,7 +16,8 @@
             title    = #{title},
             content  = #{content},
             time     = #{time},
-            is_hot   = #{isHot}
+        is_hot   = <if test="isHot != null">#{isHot}</if>
+        <if test="isHot == null">0</if>
         WHERE id = #{id}
     </update>
 
@@ -42,6 +43,9 @@
             <if test="title != null">
                 AND d.title LIKE concat('%', #{title}, '%')
             </if>
+            <if test="isHot != null">
+                AND d.is_hot = #{isHot}
+            </if>
         </where>
         ORDER BY d.id DESC
     </select>
@@ -54,5 +58,16 @@
                  LEFT JOIN movie m ON d.movie_id = m.id
                  LEFT JOIN user u  ON d.user_id = u.id
         WHERE d.id = #{id}
+    </select>
+
+    <select id="selectHot" resultType="com.example.entity.Discussion">
+        SELECT d.*,
+               m.name AS movieName,
+               u.name AS userName
+        FROM discussion d
+                 LEFT JOIN movie m ON d.movie_id = m.id
+                 LEFT JOIN user u  ON d.user_id = u.id
+        WHERE d.is_hot = 1
+        ORDER BY d.id DESC
     </select>
 </mapper>

@@ -97,7 +97,7 @@
           <div style="font-weight: bold; margin-bottom: 5px">
             {{ item.title }}
           </div>
-          <div style="line-height: 24px; color: #666; margin-bottom: 5px" v-html="item.content">
+          <div style="line-height: 24px; color: #666; margin-bottom: 5px" class="line3" v-html="item.content">
           </div>
           <!-- 点击进入讨论详情页 -->
           <div>

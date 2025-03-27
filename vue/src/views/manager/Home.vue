@@ -44,18 +44,18 @@
         </div>
 
         <!-- 渲染热门讨论组列表 -->
-        <div
-            v-for="discussion in data.hotDiscussionList"
-            :key="discussion.id"
-            style="margin-bottom: 15px; cursor: pointer"
-            @click="goDiscussionDetail(discussion.id)"
-        >
+        <div  class="card" v-for="discussion in data.hotDiscussionList" :key="discussion.id" style="margin-bottom: 15px; cursor: pointer" @click="goDiscussionDetail(discussion.id)">
           <div style="font-weight: bold; font-size: 16px; margin-bottom: 5px">
             {{ discussion.title }}
           </div>
-          <div style="color: #666; line-height: 24px">
+          <div style="color: #666; line-height: 24px" class="line1">
             <!-- 你可以用 v-html 或简写, 干净文本建议直接展示 -->
             {{ discussion.content }}
+          </div>
+          <div style="font-size: 13px; color: #888; margin-bottom: 5px;">
+            Author: <span style="color: #444">{{ discussion.userName }}</span>
+            &nbsp;|&nbsp;
+            Movie: <span style="color: #444">{{ discussion.movieName }}</span>
           </div>
         </div>
       </div>
@@ -72,6 +72,7 @@ const data = reactive({
   user: JSON.parse(localStorage.getItem('system-user') || '{}'),
   bulletinList: [],
   movieList: [],
+  hotDiscussionList: [],
   pageNum: 1,
   pageSize: 5,
   total: 0
@@ -88,6 +89,13 @@ const loadMovies = () => {
   });
 };
 loadMovies();
+
+const loadHotDiscussions =() =>{
+  request.get("discussion/selectHot").then((res) => {
+    data.hotDiscussionList = res.data;
+  });
+};
+loadHotDiscussions();
 
 request.get('bulletin/selectAll').then(res => {
   data.bulletinList = res.data;
