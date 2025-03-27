@@ -7,9 +7,9 @@
     </div>
     <div style="line-height: 24px; margin: 5px 0;" v-html="reply.content"></div>
 
-    <el-button type="text" @click="onLikeClick(reply)">
+    <el-button type="text" @click="onLikeClick">
       <img
-          :src="reply.isLiked ? likedIcon : unlikedIcon"
+          :src="reply.liked ? likedIcon : unlikedIcon"
           alt="Like"
           style="width: 20px; height: 20px;"
       />
@@ -60,7 +60,7 @@ const props = defineProps({
   discussionAuthorId: { type: Number, required: true }
 })
 
-const emits = defineEmits(['reply', 'delete','like','unlike'])
+const emits = defineEmits(['reply', 'delete','like', 'unlike'])
 
 const allowDelete = computed(() => {
   return (
@@ -78,11 +78,16 @@ const onDeleteClick = (reply) => {
   emits('delete', reply)
 }
 
-const onLikeClick = (reply) => {
-  if (!reply.isLiked) {
-    emits('like', reply)
+const onLikeClick = () => {
+  if (!props.reply.liked) {
+    props.reply.liked = true
+    props.reply.likeCount++
+    emits('like', props.reply)
   } else {
-    emits('unlike', reply)
+    props.reply.liked = false
+    props.reply.likeCount--
+    emits('unlike', props.reply)
   }
 }
+
 </script>

@@ -5,8 +5,8 @@
 <mapper namespace="com.example.mapper.DiscussionMapper">
 
     <insert id="insert" parameterType="com.example.entity.Discussion">
-        INSERT INTO discussion(movie_id, user_id, title, content, time)
-        VALUES (#{movieId}, #{userId}, #{title}, #{content}, #{time})
+        INSERT INTO discussion(movie_id, user_id, title, content, time，is_hot)
+        VALUES (#{movieId}, #{userId}, #{title}, #{content}, #{time}, #{isHot})
     </insert>
 
     <update id="updateById" parameterType="com.example.entity.Discussion">
@@ -15,7 +15,8 @@
             user_id  = #{userId},
             title    = #{title},
             content  = #{content},
-            time     = #{time}
+            time     = #{time},
+            is_hot   = #{isHot}
         WHERE id = #{id}
     </update>
 

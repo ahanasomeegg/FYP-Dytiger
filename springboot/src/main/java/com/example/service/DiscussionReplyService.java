@@ -48,11 +48,11 @@ public class DiscussionReplyService {
     public void unlikeReply(Integer replyId, Integer userId) {
         // 先检查 reply_like 表，是否已存在 (replyId, userId)
         boolean exist = discussionReplyMapper.existsReplyLike(replyId, userId);
-        if (!exist) {
-            // 如果不存在，插入一条记录
-            discussionReplyMapper.insertReplyLike(replyId, userId);
-            // 同时将 discussion_reply.like_count + 1
-            discussionReplyMapper.increaseLikeCount(replyId);
+        if (exist) {
+            // // 如果确实已点赞过, 就“取消点赞”
+            discussionReplyMapper.deleteReplyLike(replyId, userId);
+            discussionReplyMapper.decreaseLikeCount(replyId);
         }
     }
+
 }

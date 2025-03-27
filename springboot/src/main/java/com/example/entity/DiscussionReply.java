@@ -10,6 +10,15 @@ public class DiscussionReply {
     private String userName;
     private String parentUserName;
     private Integer likeCount;
+    private boolean isLiked;
+
+    public boolean isLiked() {
+        return isLiked;
+    }
+
+    public void setLiked(boolean liked) {
+        isLiked = liked;
+    }
 
     public Integer getLikeCount() {
         return likeCount;

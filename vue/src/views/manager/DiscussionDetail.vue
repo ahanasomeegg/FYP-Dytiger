@@ -80,11 +80,14 @@ const loadDiscussion = () => {
 
 // load reply list
 const loadReplies = () => {
-  request.get('/discussionReply/list/' + data.discussionId).then(res => {
+  request.get(`/discussionReply/list/${data.discussionId}`, {
+    params: { userId: data.user.id }
+  }).then(res => {
+    console.log("Replies response:", res.data)
     data.replyList = res.data
     data.replyTree = buildReplyTree(data.replyList)
-  })
-}
+  });
+};
 
 
 // display dialog
@@ -136,14 +139,16 @@ const deleteReply = (replyObj) => {
   }).catch(() => {})
 }
 
+
 const handleLike = (reply) => {
   request.post('/discussionReply/like', {
     replyId: reply.id,
     userId: data.user.id
   }).then(res => {
-    if (res.code === '200') {
-      reply.likeCount++
-      reply.isLiked = true
+    if (res.code !== '200') {
+      reply.liked = false
+      reply.likeCount--
+      ElMessage.error('Like failed')
     }
   })
 }
@@ -153,12 +158,14 @@ const handleUnlike = (reply) => {
     replyId: reply.id,
     userId: data.user.id
   }).then(res => {
-    if (res.code === '200') {
-      reply.likeCount--
-      reply.isLiked = false
+    if (res.code !== '200') {
+      reply.liked = true
+      reply.likeCount++
+      ElMessage.error('Unlike failed')
     }
   })
 }
+
 
 
 

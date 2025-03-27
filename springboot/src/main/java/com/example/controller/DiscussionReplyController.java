@@ -33,7 +33,8 @@ public class DiscussionReplyController {
 
     // list all reply
     @GetMapping("/list/{discussionId}")
-    public Result list(@PathVariable Integer discussionId, @RequestParam Integer userId) {
+    public Result list(@PathVariable Integer discussionId,
+                       @RequestParam Integer userId) {
         List<DiscussionReply> list = discussionReplyService.selectByDiscussionId(discussionId, userId);
         return Result.success(list);
     }
@@ -52,7 +53,7 @@ public class DiscussionReplyController {
     public Result unlikeReply(@RequestBody LikeRequest request) {
         Integer replyId = request.getReplyId();
         Integer userId = request.getUserId();
-        discussionReplyService.likeReply(replyId, userId);
+        discussionReplyService.unlikeReply(replyId, userId);
         return Result.success();
     }
 

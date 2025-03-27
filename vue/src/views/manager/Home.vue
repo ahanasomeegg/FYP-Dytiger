@@ -37,6 +37,29 @@
           </div>
         </el-timeline-item>
       </el-timeline>
+
+      <div style=" flex: 1; background-color: #fff; padding: 20px;overflow: auto;">
+        <div style="margin-bottom: 20px; font-size: 25px; font-weight: bold; font-style: italic; ">
+          Hot Discussions
+        </div>
+
+        <!-- 渲染热门讨论组列表 -->
+        <div
+            v-for="discussion in data.hotDiscussionList"
+            :key="discussion.id"
+            style="margin-bottom: 15px; cursor: pointer"
+            @click="goDiscussionDetail(discussion.id)"
+        >
+          <div style="font-weight: bold; font-size: 16px; margin-bottom: 5px">
+            {{ discussion.title }}
+          </div>
+          <div style="color: #666; line-height: 24px">
+            <!-- 你可以用 v-html 或简写, 干净文本建议直接展示 -->
+            {{ discussion.content }}
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
@@ -69,6 +92,10 @@ loadMovies();
 request.get('bulletin/selectAll').then(res => {
   data.bulletinList = res.data;
 });
+
+const goDiscussionDetail = (id) => {
+  location.href = "/discussionDetail?discussionId=" + id
+}
 
 const start = computed(() => (data.pageNum - 1) * data.pageSize);
 

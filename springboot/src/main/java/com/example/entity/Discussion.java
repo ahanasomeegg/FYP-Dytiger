@@ -9,6 +9,15 @@ public class Discussion {
     private String time;
     private String movieName;
     private String userName;
+    private Boolean isHot;
+
+    public Boolean getHot() {
+        return isHot;
+    }
+
+    public void setHot(Boolean hot) {
+        isHot = hot;
+    }
 
     public Integer getId() {
         return id;
