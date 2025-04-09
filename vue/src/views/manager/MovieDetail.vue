@@ -122,6 +122,7 @@
 
     </div>
 
+    <!-- recommend -->
     <div style="width: 24%; padding: 20px" class="card">
       <div style="font-size: 18px; font-style: italic; margin-bottom: 20px">Recommended movies</div>
       <div style="margin-bottom: 20px; cursor: pointer" v-for="item in data.recommendList" :key="item.id" @click="goDetail(item.id)">
@@ -335,9 +336,14 @@ request.get('/movie/selectById/' + data.id).then(res => {
   data.movie = res.data
 })
 
-request.get('/movie/selectRecommended/' + data.id).then(res => {
-  data.recommendList = res.data
-})
+request.get('/movie/selectRecommended/' + data.id, {
+  params: {
+    userId: data.user.id
+  }
+}).then(res => {
+  data.recommendList = res.data;
+});
+
 
 // 加载讨论列表
 const loadDiscussion = () => {

@@ -24,7 +24,7 @@
             <span v-if="scope.row.role === 'ADMIN'">admin</span>
           </template>
         </el-table-column>
-        <el-table-column label="Operations" align="center" width="160">
+        <el-table-column label="Operations" align="center" width="180">
           <template #default="scope">
             <el-button type="primary" @click="handleEdit(scope.row)">edit</el-button>
             <el-button type="danger" @click="handleDelete(scope.row.id)">delete</el-button>

@@ -21,4 +21,6 @@ public interface CommentMapper {
     @Select("select sum(score) from comment where movie_id = #{movieId}")
     double selectSum(Integer movieId);
 
+    @Select("select * from comment")
+    List<Comment> selectAllComments();
 }

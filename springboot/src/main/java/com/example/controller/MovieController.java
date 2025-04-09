@@ -51,10 +51,13 @@ public class MovieController {
     }
 
     //Recommended movies
-    @GetMapping("/selectRecommended/{id}")
-    public Result selectRecommended(@PathVariable Integer id) {
-        List<Movie> list = movieService.selectRecommended(id);
-        return Result.success(list);
+    @GetMapping("/selectRecommended/{movieId}")
+    public Result selectRecommended(
+            @PathVariable Integer movieId,
+            @RequestParam Integer userId // user is always logged in, so never null
+    ) {
+        List<Movie> recommended = movieService.selectRecommendedCFWithFallback(movieId, userId);
+        return Result.success(recommended);
     }
 
     //query the movie rating ranking

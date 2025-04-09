@@ -26,7 +26,7 @@
             <span>HOME</span>
           </el-menu-item>
           <el-menu-item index="/movieView">
-            <el-icon><HomeFilled /></el-icon>
+            <el-icon><Film /></el-icon>
             <span>Movie List</span>
           </el-menu-item>
           <el-menu-item index="/comment">
@@ -34,7 +34,7 @@
             <span>Movie Comment</span>
           </el-menu-item>
           <el-menu-item index="/discussion">
-            <el-icon><Comment /></el-icon>
+            <el-icon><Magnet /></el-icon>
             <span>Discussion Group</span>
           </el-menu-item>
           <el-sub-menu index="1" v-if="data.user.role ==='ADMIN'">
