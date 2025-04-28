@@ -69,7 +69,7 @@
                        v-model:page-size="data.pageSizeLong" :total="data.totalLong"  @current-change="loadLongComment"/>
       </div>
 
-      <!-- 讨论组卡片 -->
+      <!-- discussion group -->
       <div class="card" style="padding: 20px; margin-top: 10px">
         <div style="display: flex; align-items: center; justify-content: space-between;">
           <div style="font-size: 20px; color:brown;">
@@ -78,13 +78,13 @@
             ...(total {{ data.totalDiscussion }})
           </span>
           </div>
-          <!-- 发起新讨论 -->
+          <!-- write new discussion -->
           <el-button type="primary" @click="showAddDiscussionForm">
             Write New Topic
           </el-button>
         </div>
 
-        <!-- 讨论列表 -->
+        <!-- discussion list -->
         <div
             style="border-bottom: 1px solid #eee; padding: 20px 0"
             v-for="item in data.discussionList"
@@ -99,7 +99,7 @@
           </div>
           <div style="line-height: 24px; color: #666; margin-bottom: 5px" class="line3" v-html="item.content">
           </div>
-          <!-- 点击进入讨论详情页 -->
+          <!-- click into detail page -->
           <div>
           <span
               style="color: #1967e3; cursor: pointer"
@@ -110,7 +110,7 @@
           </div>
         </div>
 
-        <!-- 分页 -->
+        <!-- pagination -->
         <el-pagination
             layout="total, prev, pager, next"
             v-model:current-page="data.pageNumDiscussion"
@@ -184,7 +184,7 @@
 
 
 
-  <!-- 新增讨论 对话框 -->
+  <!-- dialog of discussion -->
   <el-dialog
       v-model="data.discussionFormVisible"
       title="New Discussion"
@@ -216,7 +216,7 @@ import { reactive} from "vue";
 import router from "@/router";
 import request from "@/utils/request";
 import {ElMessage} from "element-plus";
-import '@wangeditor/editor/dist/css/style.css' // 引入 css
+import '@wangeditor/editor/dist/css/style.css';
 import {onBeforeUnmount, ref, shallowRef} from "vue";
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
 import { i18nChangeLanguage } from '@wangeditor/editor'
@@ -345,7 +345,7 @@ request.get('/movie/selectRecommended/' + data.id, {
 });
 
 
-// 加载讨论列表
+// load discussion list
 const loadDiscussion = () => {
   request.get('/discussion/selectPage', {
     params: {
@@ -360,13 +360,13 @@ const loadDiscussion = () => {
 }
 loadDiscussion()
 
-// 显示新增讨论对话框
+// Display the new discussion dialog box
 const showAddDiscussionForm = () => {
   data.discussionForm = {}
   data.discussionFormVisible = true
 }
 
-// 保存新讨论
+// save new discussion
 const saveDiscussion = () => {
   data.discussionForm.movieId = data.id
   data.discussionForm.userId = data.user.id
@@ -381,7 +381,7 @@ const saveDiscussion = () => {
   })
 }
 
-// 点击进入讨论详情页
+// Click to enter the discussion details page
 const goDiscussionDetail = (id) => {
   location.href = "/discussionDetail?discussionId=" + id
 }

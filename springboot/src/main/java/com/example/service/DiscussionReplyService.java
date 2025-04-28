@@ -15,18 +15,18 @@ public class DiscussionReplyService {
     private DiscussionReplyMapper discussionReplyMapper;
 
     public void add(DiscussionReply reply) {
-        reply.setCreateTime(DateUtil.now());  // 填充时间
+        reply.setCreateTime(DateUtil.now());
         discussionReplyMapper.insert(reply);
     }
 
 
     public void deleteById(Integer id) {
-        // 递归删除：先删除所有子评论，再删除当前评论
+        // Recursive deletion: First delete all sub comments, then delete the current comment
         List<Integer> childIds = discussionReplyMapper.findChildReplies(id);
         for (Integer childId : childIds) {
-            deleteById(childId);  // 递归删除子评论
+            deleteById(childId);  // Recursive deletion of sub comments
         }
-        discussionReplyMapper.deleteById(id);  // 删除当前评论
+        discussionReplyMapper.deleteById(id);  // delete the current comment
     }
 
     public List<DiscussionReply> selectByDiscussionId(Integer discussionId, Integer userId) {
@@ -35,21 +35,21 @@ public class DiscussionReplyService {
 
 
     public void likeReply(Integer replyId, Integer userId) {
-        // 先检查 reply_like 表，是否已存在 (replyId, userId)
+        // First check if the reply_like table already exists (replyId, userId)
         boolean exist = discussionReplyMapper.existsReplyLike(replyId, userId);
         if (!exist) {
-            // 如果不存在，插入一条记录
+            // If it does not exist, insert a record
             discussionReplyMapper.insertReplyLike(replyId, userId);
-            // 同时将 discussion_reply.like_count + 1
+            // discussion_reply.like_count + 1
             discussionReplyMapper.increaseLikeCount(replyId);
         }
     }
 
     public void unlikeReply(Integer replyId, Integer userId) {
-        // 先检查 reply_like 表，是否已存在 (replyId, userId)
+        // First check if the reply_like table already exists (replyId, userId)
         boolean exist = discussionReplyMapper.existsReplyLike(replyId, userId);
         if (exist) {
-            // // 如果确实已点赞过, 就“取消点赞”
+            //If you have indeed liked it, then 'cancel liking'
             discussionReplyMapper.deleteReplyLike(replyId, userId);
             discussionReplyMapper.decreaseLikeCount(replyId);
         }

@@ -137,7 +137,6 @@ public class MovieService {
         Map<Integer, Map<Integer, Double>> userRatings = new HashMap<>();
         // read all comments
         List<Comment> allComments = commentMapper.selectAllComments();
-        // or your existing method
 
         for (Comment c : allComments) {
             Integer u = c.getUserId();
@@ -164,7 +163,7 @@ public class MovieService {
             simList.add(new AbstractMap.SimpleEntry<>(otherUser, sim));
         }
 
-        // 打印收集到的相似度信息
+        // Print the collected similarity information
         System.out.println("[CF] user=" + userId + " similarity list size=" + simList.size());
 
         // sort desc by sim

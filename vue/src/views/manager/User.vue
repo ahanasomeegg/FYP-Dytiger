@@ -120,7 +120,7 @@ const add = () => {
   })
 }
 
-// 编辑保存
+// edit and save
 const update = () => {
   request.put('/user/update', data.form).then(res => {
     if (res.code === '200') {

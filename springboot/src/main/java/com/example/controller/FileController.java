@@ -13,26 +13,26 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
 /**
- * 文件相关操作接口
+ * Related operation interfaces for files
  */
 @RestController
 @RequestMapping("/files")
 public class FileController {
 
-    // 表示本地磁盘文件的存储路径
+    // Indicate the storage path of local disk files
     private static final String filePath = System.getProperty("user.dir") + "/files/";
 
     @Value("${fileBaseUrl}")
     private String fileBaseUrl;
 
     /**
-     * 文件上传
+     * upload files
      */
     @PostMapping("/upload")
     public Result upload(MultipartFile file) {
-        // 定义文件的唯一标识
+        // Unique identifier for defining files
         String fileName = System.currentTimeMillis() + "-" + file.getOriginalFilename();
-        // 拼接完整的文件存储路径
+        // Splicing together the complete file storage path
         String realFilePath = filePath + fileName;
         try {
             if (!FileUtil.isDirectory(filePath)) {
@@ -40,31 +40,31 @@ public class FileController {
             }
             FileUtil.writeBytes(file.getBytes(), realFilePath);
         } catch (IOException e) {
-            System.out.println("文件上传错误");
+            System.out.println("File upload error");
         }
         String url = fileBaseUrl + "/files/download/" + fileName;
         return Result.success(url);
     }
 
     /**
-     * 文件下载
+     * download files
      */
     @GetMapping("/download/{fileName}")
     public void download(@PathVariable String fileName, HttpServletResponse response) {
-        // 设置下载文件http响应头
+        // Set the HTTP response header for downloading files
         response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, StandardCharsets.UTF_8));
-        // 拼接完整的文件存储路径
+        // Splicing together the complete file storage path
         String realFilePath = filePath + fileName;
         try {
-            // 通过文件的存储路径拿到文件字节数组
+            // Retrieve the byte array of the file through its storage path
             byte[] bytes = FileUtil.readBytes(realFilePath);
             ServletOutputStream os = response.getOutputStream();
-            // 将文件字节数组写出到文件流
+            // Write the byte array of the file to the file stream
             os.write(bytes);
             os.flush();
             os.close();
         } catch (IOException e) {
-            System.out.println("文件下载错误");
+            System.out.println("File download error");
         }
     }
 

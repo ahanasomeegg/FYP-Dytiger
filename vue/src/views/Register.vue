@@ -59,11 +59,10 @@
 
   const formRef = ref()
 
-  // 点击注册按钮的时候会触发这个方法
   const register = () => {
     formRef.value.validate((valid => {
       if (valid) {
-        // 调用后台的接口
+        // Call the backend interface
         request.post('/register', data.form).then(res => {
           if (res.code === '200') {
             ElMessage.success("register successfully!")

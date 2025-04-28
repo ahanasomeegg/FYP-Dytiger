@@ -29,7 +29,7 @@ const data = reactive({
   user: JSON.parse(localStorage.getItem('system-user') || '{}'),
 })
 
-// 把当前修改的用户信息存储到后台数据库
+// Store the currently modified user information in the backend database
 const save = () => {
   if (data.user.newPassword !== data.user.confirmPasword) {
     ElMessage.error('Confirm new password error')
@@ -38,7 +38,7 @@ const save = () => {
   request.put('/updatePassword', data.user).then(res => {
     if (res.code === '200') {
       ElMessage.success('Password changed successfully')
-      // 清空缓存
+      // Clear Cache
       localStorage.removeItem('system-user')
       router.push('/login')
     } else {

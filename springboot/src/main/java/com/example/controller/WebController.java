@@ -41,7 +41,7 @@ public class WebController {
     }
 
     /**
-     * 注册
+     * register
      */
     @PostMapping("/register")
     public Result register(@RequestBody User user) {
@@ -50,7 +50,7 @@ public class WebController {
     }
 
     /**
-     * 修改密码
+     * update password
      */
     @PutMapping("/updatePassword")
     public Result updatePassword(@RequestBody Account account) {
