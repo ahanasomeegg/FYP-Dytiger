@@ -1,41 +1,45 @@
 <template>
-  <div style="display: flex; justify-content: center; padding: 20px">
+  <div style="display: flex; justify-content: center; padding: 20px; gap: 20px">
+
+    <!-- Leaderboard Card -->
     <div class="card" style="width: 100%; max-width: 800px; padding: 20px">
-      <div style="margin-bottom: 20px; font-size: 25px; font-weight: bold; font-style: italic">
+      <div style="margin-bottom: 20px; font-size: 28px; font-weight: bold; font-style: italic">
         Points Leaderboard
       </div>
 
       <div
           v-for="(user, index) in paginatedUsers"
           :key="user.id"
-          style="display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee; cursor: default"
+          style="display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid #eee"
       >
-        <!-- 排名数字 -->
-        <div style="width: 40px; text-align: center; font-size: 18px; font-weight: bold"
-             :style="rankStyle(index + start)">
+        <!-- Rank Number -->
+        <div
+            style="width: 50px; text-align: center; font-size: 22px; font-weight: bold"
+            :style="rankStyle(index + start)"
+        >
           {{ index + start + 1 }}
         </div>
 
-        <!-- 头像 -->
+        <!-- Avatar (larger) -->
         <img
             :src="user.avatar || defaultAvatar"
             alt="avatar"
-            style="width: 40px; height: 40px; border-radius: 50%; margin: 0 15px"
+            style="width: 60px; height: 60px; border-radius: 50%; margin: 0 20px"
         />
 
-        <!-- 用户名 & 昵称 -->
+        <!-- Username & Level (font enlarged) -->
         <div style="flex: 1">
-          <div style="font-size: 16px; font-weight: 500">{{ user.name }}</div>
-          <div style="font-size: 12px; color: #888">{{ getLevel(user.points) }}</div>
+          <div style="font-size: 18px; font-weight: 500">{{ user.name }}</div>
+          <div style="font-size: 14px; color: #888">{{ getLevel(user.points) }}</div>
         </div>
 
-        <!-- 积分 -->
-        <div style="width: 60px; text-align: right; font-size: 16px; font-weight: bold">
+        <!-- Points (font enlarged) -->
+        <div style="width: 70px; text-align: right; font-size: 18px; font-weight: bold">
           {{ user.points }}
         </div>
       </div>
 
-      <!-- 分页 -->
+      <!-- Pagination -->
       <div style="text-align: center; margin-top: 20px">
         <el-pagination
             background
@@ -47,6 +51,26 @@
         />
       </div>
     </div>
+
+    <!-- Sidebar: Level System & Point Rules -->
+    <div class="card" style="width: 400px; padding: 20px; background: #fafafa;">
+      <h3 style="margin-bottom: 10px; font-size: 24px; font-weight: bold">Level System</h3>
+      <ul style="margin-bottom: 20px; line-height: 1.8; font-size: 16px;">
+        <li>Rookie: 0 – 5 points</li>
+        <li>Novice: 5 – 20 points</li>
+        <li>Hobbyist: 20 – 50 points</li>
+        <li>Movie Buff: 50 – 100 points</li>
+        <li>Superfan: 100+ points</li>
+      </ul>
+      <h3 style="margin-bottom: 10px; font-size: 24px; font-weight: bold">Point Earning Rules</h3>
+      <ul style="line-height: 1.8; font-size: 16px;">
+        <li>Short Review: +1 point</li>
+        <li>Long Review: +2 points</li>
+        <li>Discussion Post: +2 points</li>
+        <li>Hot Discussion Bonus: +5 points</li>
+      </ul>
+    </div>
+
   </div>
 </template>
 
@@ -56,7 +80,7 @@ import request from '@/utils/request'
 
 const defaultAvatar = 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
 
-// 成就等级映射
+// Level tiers definition
 const tiers = [
   { min:   0, max:   5, label: 'Rookie'    },
   { min:   5, max:  20, label: 'Novice'    },
@@ -65,7 +89,7 @@ const tiers = [
   { min: 100, max: Infinity, label: 'Superfan' },
 ]
 
-// 样式：前三名高亮
+// Highlight style for top 3 ranks
 function rankStyle(idx) {
   if (idx === 0) return { color: 'gold' }
   if (idx === 1) return { color: 'silver' }
@@ -73,6 +97,7 @@ function rankStyle(idx) {
   return { color: '#333' }
 }
 
+// Determine level label by points
 function getLevel(points = 0) {
   const tier = tiers.find(t => points >= t.min && points < t.max)
   return tier ? tier.label : ''
@@ -85,22 +110,22 @@ const data = reactive({
   total: 0,
 })
 
-// 计算分页起始索引
+// Calculate start index for pagination
 const start = computed(() => (data.pageNum - 1) * data.pageSize)
 
-// 当前页数据
+// Slice out current page of users
 const paginatedUsers = computed(() =>
     data.userList.slice(start.value, start.value + data.pageSize)
 )
 
-// 加载排行榜数据
+// Fetch ranking data
 async function loadUsers() {
-  const res = await request.get('/user/rank')  // 后端需返回按 points 降序的全量列表
+  const res = await request.get('/user/rank')
   data.userList = res.data || []
   data.total = data.userList.length
 }
 
-// 初始加载
+// Initial load
 loadUsers()
 </script>
 
