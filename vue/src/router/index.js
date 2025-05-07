@@ -21,6 +21,7 @@ const router = createRouter({
         { path: 'movieDetail', component: () => import('@/views/manager/MovieDetail.vue')},
         { path: 'discussionDetail', component: () => import('@/views/manager/DiscussionDetail.vue')},
         { path: 'discussion', component: () => import('@/views/manager/Discussion.vue')},
+        { path: 'pointsRank', component: () => import('@/views/manager/PointsRank.vue')},
       ]
     },
     { path: '/login', component: () => import('@/views/Login.vue')},

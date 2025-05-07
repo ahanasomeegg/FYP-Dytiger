@@ -17,6 +17,16 @@ public class User extends Account {
     private String avatar;
     /** role */
     private String role;
+    /** points/achievements */
+    private Integer points;
+
+    public Integer getPoints() {
+        return points;
+    }
+
+    public void setPoints(Integer points) {
+        this.points = points;
+    }
 
     @Override
     public Integer getId() {

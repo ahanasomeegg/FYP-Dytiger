@@ -75,4 +75,13 @@ public class UserController {
         return Result.success(page);
     }
 
+    /**
+     * points ranking
+     */
+    @GetMapping("/rank")
+    public Result rank() {
+        List<User> list = userService.getRank();
+        return Result.success(list);
+    }
+
 }

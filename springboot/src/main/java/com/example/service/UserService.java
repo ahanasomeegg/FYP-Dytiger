@@ -105,4 +105,8 @@ public class UserService {
         userMapper.updateById(dbUser);
     }
 
+    public List<User> getRank() {
+        return userMapper.selectTopByPoints();
+    }
+
 }

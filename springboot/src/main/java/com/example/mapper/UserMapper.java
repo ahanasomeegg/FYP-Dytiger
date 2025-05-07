@@ -2,7 +2,9 @@ package com.example.mapper;
 
 import com.example.entity.User;
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -39,4 +41,12 @@ public interface UserMapper {
     @Select("select * from user where username = #{username}")
     User selectByUsername(String username);
 
+    void updatePoints(Integer userId, Integer points);
+
+
+    List<User> selectTopByPoints();
 }
+
+
+
+

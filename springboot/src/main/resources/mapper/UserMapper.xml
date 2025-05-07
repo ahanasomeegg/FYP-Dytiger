@@ -22,4 +22,16 @@
         where id = #{id} 
     </update>
 
+    <update id="updatePoints">
+        UPDATE user
+        SET points = points + #{points}
+        WHERE id = #{userId}
+    </update>
+
+    <select id="selectTopByPoints" resultType="com.example.entity.User">
+        SELECT id, name, avatar, points
+        FROM user
+        ORDER BY points DESC
+    </select>
+
 </mapper>

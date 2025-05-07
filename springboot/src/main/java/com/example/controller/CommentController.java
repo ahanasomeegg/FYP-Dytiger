@@ -7,7 +7,9 @@ import com.github.pagehelper.PageInfo;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/comment")
@@ -21,8 +23,10 @@ public class CommentController {
      */
     @PostMapping("/add")
     public Result add(@RequestBody Comment comment) {
-        commentService.add(comment);
-        return Result.success();
+        int pointsAdded = commentService.add(comment);
+        Map<String, Object> data = new HashMap<>();
+        data.put("pointsAdded", pointsAdded);
+        return Result.success(data);
     }
 
     /**

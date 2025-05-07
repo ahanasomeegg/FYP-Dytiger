@@ -69,6 +69,10 @@
               <span>User Information</span>
             </el-menu-item>
           </el-sub-menu>
+          <el-menu-item index="/pointsRank">
+            <el-icon><User /></el-icon>
+            <span>Points Ranking</span>
+          </el-menu-item>
           <el-menu-item index="/person">
             <el-icon><User /></el-icon>
             <span>My profile</span>

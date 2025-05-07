@@ -7,7 +7,9 @@ import com.github.pagehelper.PageInfo;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/discussion")
@@ -19,8 +21,10 @@ public class DiscussionController {
     // add
     @PostMapping("/add")
     public Result add(@RequestBody Discussion discussion) {
-        discussionService.add(discussion);
-        return Result.success();
+        int pointsAdded = discussionService.add(discussion);
+        Map<String, Object> data = new HashMap<>();
+        data.put("pointsAdded", pointsAdded);
+        return Result.success(data);
     }
 
     // update

@@ -77,7 +77,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("@/assets/imgs/bg1.jpg");
+  background-image: url("@/assets/imgs/Dytiger.jpg");
   background-size: cover;
 }
 .login-box {

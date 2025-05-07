@@ -39,7 +39,7 @@
   </div>
 
   <el-dialog v-model="data.formVisibleComment" title="comment content" width="40%">
-    <div v-html="data.commentContent">
+    <div v-html="data.commentContent" class="Comment">
     </div>
     <template #footer>
       <div class="dialog-footer">
@@ -149,3 +149,9 @@ const del = (id) =>{
 }
 
 </script>
+
+<style>
+.Comment img{
+  width: 100%;
+}
+</style>

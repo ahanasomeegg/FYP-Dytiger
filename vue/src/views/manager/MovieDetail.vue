@@ -169,7 +169,7 @@
     </el-dialog>
 
     <el-dialog v-model="data.formVisibleView" title="long reviews display" width="50%">
-      <div style="line-height: 24px" class="longComment">D
+      <div style="line-height: 24px" class="longComment">
         <div v-html="data.comment"></div>
       </div>
       <template #footer>
